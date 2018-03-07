@@ -138,7 +138,7 @@ def buidDeviceEntity():
 					}
 				}
 			)
-
+			
 			output = json.dumps(content, indent=4)
 
 		return output
