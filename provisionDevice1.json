@@ -1,0 +1,1075 @@
+{
+    "devices": {
+        "protocol": "GENERIC_PROTO", 
+        "entity_name": "Milling Machine", 
+        "entity_type": "FirstMachineDevice", 
+        "current_part": "Transfer_data_MPT_18_Impeller_0001_ref_APS_nok", 
+        "attributes": [
+            {
+                "type": "Integer", 
+                "name": "date"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "time"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "operation"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "mach_pgm"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "N_line"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "tool"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S_act"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S_act_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S_act_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S_act_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "feed"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "feed_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "feed_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "feed_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_S"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_S_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_S_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_S_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_feed"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_feed_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_feed_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_feed_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_pos"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_pos_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_pos_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_pos_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_pos"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_pos_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_pos_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_pos_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_pos"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_pos_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_pos_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_pos_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_pos"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_pos_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_pos_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_pos_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_pos"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_pos_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_pos_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_pos_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "env_temp"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "env_temp_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "env_temp_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "env_temp_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_brg_temp"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_brg_temp_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_brg_temp_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_brg_temp_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "flange_temp"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "flange_temp_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "flange_temp_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "flange_temp_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "motor_temp"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "motor_temp_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "motor_temp_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "motor_temp_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_vib"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_vib_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_vib_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_vib_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_vib"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_vib_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_vib_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_vib_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_state_tol"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_state_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "drive_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "drive_state_tol"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "drive_state_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_1_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_2_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_3_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_4_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_5_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_6_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_7_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_8_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "nb_repet"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "repeat_op"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "machine_msg"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S_act_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "feed_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_S_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_feed_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_pos_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_pos_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_pos_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_pos_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_pos_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "env_temp_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_brg_temp_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "flange_temp_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "motor_temp_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_vib_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_vib_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_state_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "drive_state_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": ""
+            }, 
+            {
+                "type": "Integer", 
+                "name": ""
+            }, 
+            {
+                "type": "Integer", 
+                "name": "date"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "time"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "operation"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "mach_pgm"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "N_line"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "tool"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S_act"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S_act_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S_act_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S_act_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "feed"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "feed_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "feed_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "feed_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_S"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_S_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_S_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_S_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_feed"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_feed_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_feed_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_feed_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_pos"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_pos_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_pos_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_pos_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_pos"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_pos_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_pos_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_pos_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_pos"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_pos_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_pos_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_pos_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_pos"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_pos_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_pos_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_pos_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_pos"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_pos_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_pos_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_pos_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "env_temp"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "env_temp_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "env_temp_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "env_temp_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_brg_temp"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_brg_temp_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_brg_temp_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_brg_temp_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "flange_temp"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "flange_temp_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "flange_temp_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "flange_temp_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "motor_temp"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "motor_temp_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "motor_temp_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "motor_temp_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_vib"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_vib_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_vib_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_vib_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_vib"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_vib_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_vib_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_vib_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_load"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_load_min"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_load_max"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_load_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_state_tol"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_state_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "drive_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "drive_state_tol"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "drive_state_react"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_1_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_2_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_3_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_4_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_5_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_6_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_7_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "module_8_state"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "nb_repet"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "repeat_op"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "machine_msg"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "S_act_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "feed_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_S_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "override_feed_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_pos_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_pos_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_pos_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_pos_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_pos_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "env_temp_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_brg_temp_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "flange_temp_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "motor_temp_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_vib_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_vib_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "spindle_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_X_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Y_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_Z_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_IV_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "axis_C_load_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "process_state_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": "drive_state_timeout"
+            }, 
+            {
+                "type": "Integer", 
+                "name": ""
+            }, 
+            {
+                "type": "Integer", 
+                "name": ""
+            }
+        ], 
+        "device_id": "Sensor_0"
+    }
+}

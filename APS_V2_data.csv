@@ -1,0 +1,5 @@
+Variable (machining parameter),Description,Unit,Type,Size,"Display priority
+(1: highest)","Column of csv file
+(actual, tol. min., tol. max., react., timeout)"
+
+module_8_state,State of submodule 8 of APS V2,,Integer,(1x1),17,DA
