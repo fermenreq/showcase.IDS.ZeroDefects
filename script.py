@@ -27,17 +27,29 @@ import ConfigParser
 
 
 #Secondary CSV: It has got all sensor measures
-CSV = 'Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv'
+#CSV = 'Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv'
 #Addres path
 path = '../FIWARE-Milling-CMM/'
 CONFIG_FILE = path + 'config/config.json'
-CONFIG.INI = path + "config/config.ini"
+CONFIG_INI = path + 'config/config.ini'
 
+ENTITY_NAME = 'Milling Machine'
+DEVICE_ID = 'Sensor_0'
+ENTITY_TYPE = 'FirstMachineDevice'
 
+NUM_ARG=len(sys.argv)
+SCRIPT_NAME=sys.argv[0] 
 
-CURRENT_CSV = sys.argv[0]
+if NUM_ARG==2:
+   FILE_NAME_CSV=sys.argv[1]
+   
+else:
+   print 'Usage: '+SCRIPT_NAME+' [Name of CSV file]'
+   print 
 
-with open(CONFIG_FILE,'r+') as f:
+CSV = FILE_NAME_CSV
+
+with open(CONFIG_INI,'r+') as f:
 	sample_config = f.read()
 
 config = ConfigParser.RawConfigParser(allow_no_value=True)
@@ -48,20 +60,10 @@ CONTEXTBROKER_PORT = config.get('ORION','port')
 FIWARE_SERVICE = config.get('ORION','fiware_service')
 FIWARE_SERVICEPATH = config.get('ORION','fiware_servicepath')
 
-
 f.close()
 
-ENTITY_NAME = 'Milling Machine'
-DEVICE_ID = 'Sensor_0'
-ENTITY_TYPE = 'FirstMachineDevice'
-CURRENT_PIECE = CURRENT_CSV.split('csv')
-
 HEADERS = {'content-type': 'application/text' , 'fiware-service': FIWARE_SERVICE, 'fiware_servicepath': FIWARE_SERVICEPATH }
-URL = "http://"+CONTEXTBROKER_HOST+":"CONTEXTBROKER_PORT + 'iot/d' + '/v2/entities/+'ENTITY_NAME'+/attrs'
-
-
-
-
+URL = "http://"+CONTEXTBROKER_HOST+":"+CONTEXTBROKER_PORT +'iot/d'+'/v2/entities/'+ENTITY_NAME+'/attrs'
 
 def readConfigFile():
 	dic = {}
@@ -70,7 +72,6 @@ def readConfigFile():
 	for i in data["config"]:
 		dic.update({ i["colunm_name"].encode("ascii","replace"): i["type"].encode("ascii","replace")})
 	return dic
-
 
 def colToNum():
     d = readConfigFile()
@@ -81,7 +82,6 @@ def colToNum():
 
     return lista
 
-
 def translateColToNum(col):
 	expn = 0
 	colToNum = 0
@@ -90,7 +90,6 @@ def translateColToNum(col):
 		colToNum += (ord(char) - ord('A') + 1) * (26 ** expn)
 		expn += 1
 	return colToNum
-
 
 def casting(value):
 	for typeData in readConfigFile().values():
@@ -102,7 +101,6 @@ def casting(value):
 			castingValue = long(value)
 		
 	return castingValue
-
 
 def buildMultipleMeasures():
 	my_file = os.path.join(path, CSV)
@@ -131,18 +129,9 @@ def buildMultipleMeasures():
 						  nameField: {ty: types, val: cast}}
 
 				output = json.dumps(content, indent=4)
-				print output
-				#post(output)
 
-
-
-
-
-
-
-
-
-
+				requests.post(URL,data=output, headers=HEADERS)
+				
 
 if __name__ == "__main__":
 	print buildMultipleMeasures()
