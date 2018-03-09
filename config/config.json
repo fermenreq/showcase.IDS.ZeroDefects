@@ -1,0 +1,11 @@
+{
+  "config": [{
+     "colunm_name": "DA",
+      "type": "Integer"
+    },
+    {
+     "colunm_name": "DB",
+      "type": "Float"
+    }
+  ]
+}
