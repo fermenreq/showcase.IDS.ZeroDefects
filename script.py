@@ -134,5 +134,5 @@ def buildMultipleMeasures():
 				
 
 if __name__ == "__main__":
-	print buildMultipleMeasures()
+	buildMultipleMeasures()
 	
