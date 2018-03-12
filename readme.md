@@ -14,24 +14,56 @@ This configuration file will be also used to create a device in NGSI format. The
 ```
 {
   "config": [{
-     "colunm_name": "H",
-      "type": "Integer",
-      "attribute_name" : "S_act"
+     "colunm_name": "spindle_brg_temp",
+      "type": "Float",
+      "attribute_name" : "spindle_brg_temp"
     },
     {
-     "colunm_name": "F",
-      "type": "integer",
-      "attribute_name": "tool"
+     "colunm_name": "module_8_state",
+      "type": "Integer",
+      "attribute_name": "module_8_state"
+    },
+    {
+     "colunm_name": "tool",
+      "type": "Integer",
+      "attribute_name": "tool_to"
     }
   ]
 }
+
 ```
+
+You can send any column just configuring this file with the name of the column, the data type, and the name you want to use for the NGSI representation:
+ * "column_name" is a name of a column in the output file from the MM
+ * "type" is the type, it will be used for NGSI type
+ * "attribute_name" is the name to be used for NGSI. Usually, this name could be the same as column_name, but you could use a different one for having any kind of representation about your NGSI data model. 
 
 According to this configuration: 
 
- * A device will be created with two attributes: "S_act" with integer values from column H and "tool" as integer from column F.
- * A CSV file will be parsed to extract columns F and H
- * Each row representing a time stamp will be send to Orion about columns F and H. Translate into a JSON NGSIv2
+ * A device will be created with tree attributes.
+ * A CSV file will be parsed to extract columns spindle_brg_temp, module_8_state and tool
+ * Each row, representing a time stamp, will be send to Orion about these columns. Translated into a JSON NGSIv2
+
+Example of JSON generated:
+
+```
+{
+    "spindle_brg_temp": {
+        "type": "Float", 
+        "value": 34.275
+    }, 
+    "module_8_state": {
+        "type": "Integer", 
+        "value": 2
+    }, 
+    "tool_to": {
+        "type": "Integer", 
+        "value": 12
+    }, 
+    "currentPart": "MM_data_output/Transfer_data_MPT_18_Impeller_0002_ref_APS_ok.csv"
+}
+
+```
 
 ## How to run it
 
