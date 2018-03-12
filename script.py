@@ -26,6 +26,8 @@ import ConfigParser
 import requests
 import string
 
+from urllib2 import Request, urlopen
+
 #Secondary CSV: It has got all sensor measures
 #CSV = 'Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv'
 #Addres path
@@ -58,13 +60,15 @@ config.readfp(io.BytesIO(sample_config))
 
 CONTEXTBROKER_HOST = config.get('ORION','host')
 CONTEXTBROKER_PORT = config.get('ORION','port')
-FIWARE_SERVICE = config.get('ORION','fiware_service')
-FIWARE_SERVICEPATH = config.get('ORION','fiware_servicepath')
+#FIWARE_SERVICE = config.get('ORION','fiware_service')
+#FIWARE_SERVICEPATH = config.get('ORION','fiware_servicepath')
 
 f.close()
 
-HEADERS = {'content-type': 'application/text' , 'fiware-service': FIWARE_SERVICE, 'fiware_servicepath': FIWARE_SERVICEPATH }
-URL = "http://"+CONTEXTBROKER_HOST+":"+CONTEXTBROKER_PORT+'/v2/entities/'+ENTITY_NAME+'/attrs'
+headers = {
+  'Content-Type': 'application/json'
+}
+URL = "http://"+CONTEXTBROKER_HOST+":"+CONTEXTBROKER_PORT+'/v2/entities/?options=keyValues'
 
 
 def readConfigFile():
@@ -109,12 +113,12 @@ def colToNum():
 #	return colToNum
 
 
-def translateColToNum(col):
-    num = 0
-    for c in col:
-        if c in string.ascii_letters:
-            num = num * 26 + (ord(c.upper()) - ord('A')) + 1
-    return num
+#def translateColToNum(col):
+#    num = 0
+#    for c in col:
+#        if c in string.ascii_letters:
+#            num = num * 26 + (ord(c.upper()) - ord('A')) + 1
+#    return num
 
 def casting(value, typeData):
 	if typeData == "Integer":
@@ -136,7 +140,6 @@ def sendMeasures():
 	with open(my_file) as csvfile:
 		reader = csv.DictReader(csvfile, delimiter=';', quoting=csv.QUOTE_NONE)
 		attributeName = reader.fieldnames
-		print attributeName
 		for row in reader:
 			date = row[attributeName[0]]
 			time = row[attributeName[1]]
@@ -161,40 +164,37 @@ def sendMeasures():
 			i=0
 			print "======================="
 						
-def createDevice():
+def createEntity():
+	content = {}
+	content["type"] = ENTITY_TYPE 
+	content["id"]= ENTITY_NAME				
+	content["currentPart"] = CSV.split('/')[1].split('.')[0]
+		
 	my_file = os.path.join(path, CSV)
-	listPositionAtts = colToNum()
-	d = readConfigFile()
-	print d
-	listType = []
-	listType = d.values()
+	configTranslate = readConfigFile()
 	ty = "type"
 	val = "value"
-	content = {}
-	i = 0
-	lista = attributeNameType()
+	
 
 	with open(my_file) as csvfile:
-		reader = csv.DictReader(csvfile)
+		reader = csv.DictReader(csvfile, delimiter=';', quoting=csv.QUOTE_NONE)
 		attributeName = reader.fieldnames
-		for j in listPositionAtts:							
-			content.update({
-			"devices": {
-					"device_id": DEVICE_ID, 
-					"protocol": "GENERIC_PROTO",
-					"entity_name": ENTITY_NAME,
-					"entity_type": ENTITY_TYPE,
-					"current_part": CSV.split('.')[0],
-					"attributes": lista
-					}
-				}
-			)
+		
+		for j in configTranslate:
+			
+			attributeName = j.get("attribute_name")
+			content[attributeName] = { ty: "default", val: "0"}
+		
 		output = json.dumps(content, indent=4)
-		print output
-
-		#requests.post(URL,data=output, headers=HEADERS)
-
+	
+	return output
+			
 
 if __name__ == "__main__":
-	#createDevice()
-	sendMeasures()
+	payload = createEntity()
+	print payload
+	r = requests.post(URL, data = payload, headers=headers)
+	print str(r.status_code)
+	print str(r.text)
+
+	#sendMeasures()
