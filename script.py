@@ -24,7 +24,7 @@ import io
 import sys
 import ConfigParser
 import requests
-
+import string
 
 #Secondary CSV: It has got all sensor measures
 #CSV = 'Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv'
@@ -68,12 +68,14 @@ URL = "http://"+CONTEXTBROKER_HOST+":"+CONTEXTBROKER_PORT+'/v2/entities/'+ENTITY
 
 
 def readConfigFile():
-	dic = {}
+	config = []
 	data = json.load(open(CONFIG_FILE))
-	
+		
 	for i in data["config"]:
-		dic.update({ i["colunm_name"].encode("ascii","replace"): i["type"].encode("ascii","replace")})
-	return dic
+		#dic.update({ i["colunm_name"].encode("ascii","replace"): i["type"].encode("ascii","replace")})
+		config.append(i);
+
+	return config
 
 
 def attributeNameType():
@@ -97,62 +99,73 @@ def colToNum():
 
     return lista
 
-def translateColToNum(col):
-	expn = 0
-	colToNum = 0
-	nameColum=col
-	for char in reversed(nameColum):
-		colToNum += (ord(char) - ord('A') + 1) * (26 ** expn)
-		expn += 1
-	return colToNum
+#def translateColToNum(col):
+#	expn = 0
+#	colToNum = 0
+#	nameColum=col
+#	for char in reversed(nameColum):
+#		colToNum += (ord(char) - ord('A') + 1) * (26 ** expn)
+#		expn += 1
+#	return colToNum
 
-def casting(value):
-	for typeData in readConfigFile().values():
-		if typeData == "Integer":
-			castingValue= int(value)
-		if typeData == "Float":
-			castingValue = float(value)
-		if typeData == "Long":
-			castingValue = long(value)
+
+def translateColToNum(col):
+    num = 0
+    for c in col:
+        if c in string.ascii_letters:
+            num = num * 26 + (ord(c.upper()) - ord('A')) + 1
+    return num
+
+def casting(value, typeData):
+	if typeData == "Integer":
+		castingValue= int(value)
+	if typeData == "Float":
+		castingValue = float(value)
+	if typeData == "Long":
+		castingValue = long(value)
 		
 	return castingValue
 
 def sendMeasures():
 	my_file = os.path.join(path, CSV)
-	listPositionAtts = colToNum()
-	d = readConfigFile()
-	listType = []
-	listType = d.values()
+	configTranslate = readConfigFile()
 	ty = "type"
 	val = "value"
 	content = {}
 	i = 0
 	with open(my_file) as csvfile:
-		reader = csv.DictReader(csvfile)
+		reader = csv.DictReader(csvfile, delimiter=';', quoting=csv.QUOTE_NONE)
 		attributeName = reader.fieldnames
-		for j in listPositionAtts:
-			nameField = attributeName[j]
-			for row in reader:
-				value = row[nameField]
-				cast = casting(value)
-				date = row[attributeName[0]]
-				time = row[attributeName[1]]
-				types = listType[i]
-				i=i+1
+		print attributeName
+		for row in reader:
+			date = row[attributeName[0]]
+			time = row[attributeName[1]]
+					
+				#content = { "Date" :  {ty : "DateTime", val:date+time } ,
+				#		  nameField: {ty: types, val: cast}}
 				
-				content = { "Date" :  {ty : "DateTime", val:date+time } ,
-						  nameField: {ty: types, val: cast}}
+			#content["timeStamp"] = {ty : "DateTime", val:date } #conver also time
+			content["currentPart"] = CSV
+			for j in configTranslate:
+				value = row[j.get("colunm_name")]
+				types = j.get("type")
+                        	cast = casting(value, types)
 
-				output = json.dumps(content, indent=4)
+				i=i+1
+				content[j.get("attribute_name")] = { ty: types, val: cast} 
+			output = json.dumps(content, indent=4)
+			
+			print output
 
-				print output
-
-				#requests.post(URL,data=output, headers=HEADERS)
+			#requests.post(URL,data=output, headers=HEADERS)
+			i=0
+			print "======================="
 						
 def createDevice():
 	my_file = os.path.join(path, CSV)
 	listPositionAtts = colToNum()
 	d = readConfigFile()
+	print d
 	listType = []
 	listType = d.values()
 	ty = "type"
@@ -183,5 +196,5 @@ def createDevice():
 
 
 if __name__ == "__main__":
-	createDevice()
-	#sendMeasures()
+	#createDevice()
+	sendMeasures()
