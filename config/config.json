@@ -1,13 +1,13 @@
 {
   "config": [{
-     "colunm_name": "DA",
-      "type": "Integer",
-      "attribute_name" : "example1"
+     "colunm_name": "AV",
+      "type": "Float",
+      "attribute_name" : "spindle_brg_temp"
     },
     {
-     "colunm_name": "DB",
-      "type": "Float",
-      "attribute_name": "example2"
+     "colunm_name": "DA",
+      "type": "Integer",
+      "attribute_name": "module_8_state"
     }
   ]
 }
