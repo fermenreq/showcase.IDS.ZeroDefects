@@ -1,11 +1,11 @@
 {
   "config": [{
-     "colunm_name": "AV",
+     "colunm_name": "spindle_brg_temp",
       "type": "Float",
       "attribute_name" : "spindle_brg_temp"
     },
     {
-     "colunm_name": "DA",
+     "colunm_name": "module_8_state",
       "type": "Integer",
       "attribute_name": "module_8_state"
     }
