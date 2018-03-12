@@ -36,18 +36,16 @@ CONFIG_FILE = path + 'config/config.json'
 CONFIG_INI = path + 'config/config.ini'
 
 ENTITY_NAME = 'MillingMachine'
-#DEVICE_ID = 'Sensor_0'
 ENTITY_TYPE = 'FirstMachineDevice'
 
 NUM_ARG=len(sys.argv)
 
 SCRIPT_NAME=sys.argv[0]
-DEVICE_ID=sys.argv[1]
-FILE_NAME_CSV=sys.argv[2]
+FILE_NAME_CSV=sys.argv[1]
 
 
 if NUM_ARG !=3:
-	print 'Usage: '+SCRIPT_NAME+' [DEVICE ID] + [CSV NAME]'
+	print 'Usage: '+ SCRIPT_NAME + '[CSV NAME]'
 
 CSV = FILE_NAME_CSV
 
@@ -179,11 +177,14 @@ def createEntity():
 	with open(my_file) as csvfile:
 		reader = csv.DictReader(csvfile, delimiter=';', quoting=csv.QUOTE_NONE)
 		attributeName = reader.fieldnames
-		
+
 		for j in configTranslate:
-			
+			value = 0
+			types = j.get("type")
+                       	cast = casting(value, types)
+
 			attributeName = j.get("attribute_name")
-			content[attributeName] = { ty: "default", val: "0"}
+			content[attributeName] = { ty: types, val: value}
 		
 		output = json.dumps(content, indent=4)
 	
