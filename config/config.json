@@ -1,11 +1,13 @@
 {
   "config": [{
      "colunm_name": "DA",
-      "type": "Integer"
+      "type": "Integer",
+      "attribute_name" : "example1"
     },
     {
      "colunm_name": "DB",
-      "type": "Float"
+      "type": "Float",
+      "attribute_name": "example2"
     }
   ]
 }
