@@ -25,6 +25,7 @@ import sys
 import ConfigParser
 import requests
 import string
+import os
 
 from urllib2 import Request, urlopen
 
@@ -43,8 +44,7 @@ NUM_ARG=len(sys.argv)
 SCRIPT_NAME=sys.argv[0]
 FILE_NAME_CSV=sys.argv[1]
 
-
-if NUM_ARG !=3:
+if NUM_ARG !=2:
 	print 'Usage: '+ SCRIPT_NAME + '[CSV NAME]'
 
 CSV = FILE_NAME_CSV
@@ -66,7 +66,11 @@ f.close()
 headers = {
   'Content-Type': 'application/json'
 }
-URL = "http://"+CONTEXTBROKER_HOST+":"+CONTEXTBROKER_PORT+'/v2/entities/?options=keyValues'
+
+if (('ORION_URL' in os.environ) and (os.environ['ORION_URL'] is not None)):
+	URL = os.environ['ORION_URL'] + "/v2/entities/?options=keyValues"
+else:
+	URL = "http://localhost:1026/v2/entities/?options=keyValues"
 
 
 def readConfigFile():
@@ -166,14 +170,13 @@ def createEntity():
 	content = {}
 	content["type"] = ENTITY_TYPE 
 	content["id"]= ENTITY_NAME				
-	content["currentPart"] = CSV.split('/')[1].split('.')[0]
+	#content["currentPart"] = CSV.split('/')[1].split('.')[0]
 		
 	my_file = os.path.join(path, CSV)
 	configTranslate = readConfigFile()
 	ty = "type"
 	val = "value"
 	
-
 	with open(my_file) as csvfile:
 		reader = csv.DictReader(csvfile, delimiter=';', quoting=csv.QUOTE_NONE)
 		attributeName = reader.fieldnames
@@ -194,6 +197,7 @@ def createEntity():
 if __name__ == "__main__":
 	payload = createEntity()
 	print payload
+	print URL
 	r = requests.post(URL, data = payload, headers=headers)
 	print str(r.status_code)
 	print str(r.text)
