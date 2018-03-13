@@ -34,7 +34,6 @@ from urllib2 import Request, urlopen
 #Addres path
 path = '../FIWARE-Milling-CMM/'
 CONFIG_FILE = path + 'config/config.json'
-CONFIG_INI = path + 'config/config.ini'
 
 ENTITY_NAME = 'MillingMachine'
 ENTITY_TYPE = 'FirstMachineDevice'
@@ -50,18 +49,6 @@ if NUM_ARG !=2:
 CSV = FILE_NAME_CSV
 
 
-with open(CONFIG_INI,'r+') as f:
-	sample_config = f.read()
-
-config = ConfigParser.RawConfigParser(allow_no_value=True)
-config.readfp(io.BytesIO(sample_config))
-
-CONTEXTBROKER_HOST = config.get('ORION','host')
-CONTEXTBROKER_PORT = config.get('ORION','port')
-#FIWARE_SERVICE = config.get('ORION','fiware_service')
-#FIWARE_SERVICEPATH = config.get('ORION','fiware_servicepath')
-
-f.close()
 
 headers = {
   'Content-Type': 'application/json'
@@ -96,31 +83,6 @@ def attributeNameType():
 	return lista
 
 
-def colToNum():
-    d = readConfigFile()
-    lista = []
-    for i in d.keys():
-	    number = translateColToNum(i)
-	    lista.append(number)
-
-    return lista
-
-#def translateColToNum(col):
-#	expn = 0
-#	colToNum = 0
-#	nameColum=col
-#	for char in reversed(nameColum):
-#		colToNum += (ord(char) - ord('A') + 1) * (26 ** expn)
-#		expn += 1
-#	return colToNum
-
-
-#def translateColToNum(col):
-#    num = 0
-#    for c in col:
-#        if c in string.ascii_letters:
-#            num = num * 26 + (ord(c.upper()) - ord('A')) + 1
-#    return num
 
 def casting(value, typeData):
 	if typeData == "Integer":
@@ -202,4 +164,4 @@ if __name__ == "__main__":
 	print str(r.status_code)
 	print str(r.text)
 
-	#sendMeasures()
+	sendMeasures()
