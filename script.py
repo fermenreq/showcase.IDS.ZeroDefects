@@ -42,7 +42,7 @@ ENTITY_TYPE = 'FirstMachineDevice'
 NUM_ARG=len(sys.argv)
 
 SCRIPT_NAME=sys.argv[0]
-FILE_NAME_CSV= path +'MM_data_output/'+sys.argv[1]
+FILE_NAME_CSV= sys.argv[1]
 
 if NUM_ARG !=2:
 	print 'Usage: ' + SCRIPT_NAME + '[CSV NAME]'
@@ -127,16 +127,12 @@ def sendMeasures():
 					content[j.get("attribute_name")]  = { ty: types, val: cast} 
 
 			output = json.dumps(content, indent=4)
-		
 			parts = urlparse.urlparse(URL)
 			parts = parts._replace(path="v2/entities/"+ENTITY_NAME+"/attrs/?options=keyValues")
 			final = parts.geturl()
 
-			requests.post(final,data=output, headers=headers)
+			r = requests.post(final,data=output, headers=headers)
 			
-			print r.status_code
-
-			r = requests.post(URL,data=output, headers=headers)
 		        print str(r.status_code)
         		print str(r.text)
 
@@ -154,7 +150,7 @@ def createEntity():
 	configTranslate = readConfigFile()
 	ty = "type"
 	val = "value"
-	
+	print CSV	
 	with open(my_file) as csvfile:
 		reader = csv.DictReader(csvfile, delimiter=';', quoting=csv.QUOTE_NONE)
 		attributeName = reader.fieldnames
@@ -180,13 +176,15 @@ if __name__ == "__main__":
 	parts = parts._replace(path="/v2/entities/?options=keyValues")
 	new_url = parts.geturl()
 
-
+	print payloadEntity
 	r = requests.post(new_url, data = payloadEntity, headers=headers)
-
-	if r.status_code == 201:
+	print r
+	if ((r.status_code == 201) or (r.status_code == 422)):
 	 	print "Initial entity created"
 		
 		sendMeasures()
+	else:
+		print "unexpected errror"
 
 
 
