@@ -8,6 +8,11 @@
      "colunm_name": "module_8_state",
       "type": "Integer",
       "attribute_name": "module_8_state"
+    },
+    {
+     "colunm_name": "tool",
+      "type": "Integer",
+      "attribute_name": "tool_to"
     }
   ]
 }
