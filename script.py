@@ -28,12 +28,13 @@ import string
 import os
 
 from urllib2 import Request, urlopen
+import urlparse
 
-#Secondary CSV: It has got all sensor measures
-#CSV = 'Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv'
+
 #Addres path
 path = '../FIWARE-Milling-CMM/'
 CONFIG_FILE = path + 'config/config.json'
+
 
 ENTITY_NAME = 'MillingMachine'
 ENTITY_TYPE = 'FirstMachineDevice'
@@ -41,11 +42,11 @@ ENTITY_TYPE = 'FirstMachineDevice'
 NUM_ARG=len(sys.argv)
 
 SCRIPT_NAME=sys.argv[0]
-FILE_NAME_CSV=sys.argv[1]
+FILE_NAME_CSV= path +'MM_data_output/'+sys.argv[1]
 
 if NUM_ARG !=2:
-	print 'Usage: '+ SCRIPT_NAME + '[CSV NAME]'
-
+	print 'Usage: ' + SCRIPT_NAME + '[CSV NAME]'
+ 
 CSV = FILE_NAME_CSV
 
 
@@ -55,9 +56,10 @@ headers = {
 }
 
 if (('ORION_URL' in os.environ) and (os.environ['ORION_URL'] is not None)):
-	URL = os.environ['ORION_URL'] + "/v2/entities/?options=keyValues"
+	URL = os.environ['ORION_URL']
 else:
-	URL = "http://localhost:1026/v2/entities/?options=keyValues"
+	URL = "http://localhost:1026"
+
 
 
 def readConfigFile():
@@ -66,8 +68,9 @@ def readConfigFile():
 		
 	for i in data["config"]:
 		#dic.update({ i["colunm_name"].encode("ascii","replace"): i["type"].encode("ascii","replace")})
-		config.append(i);
-
+		config.append({"colunm_name": i["colunm_name"].encode("ascii","replace"),
+			"type": i["type"].encode("ascii","replace"),
+			"attribute_name": i["attribute_name"].encode("ascii","replace")});
 	return config
 
 
@@ -83,7 +86,6 @@ def attributeNameType():
 	return lista
 
 
-
 def casting(value, typeData):
 	if typeData == "Integer":
 		castingValue= int(value)
@@ -97,6 +99,7 @@ def casting(value, typeData):
 def sendMeasures():
 	my_file = os.path.join(path, CSV)
 	configTranslate = readConfigFile()
+
 	ty = "type"
 	val = "value"
 	content = {}
@@ -114,25 +117,34 @@ def sendMeasures():
 			#content["timeStamp"] = {ty : "DateTime", val:date } #conver also time
 			content["currentPart"] = CSV
 			for j in configTranslate:
+
 				value = row[j.get("colunm_name")]
 				types = j.get("type")
                         	cast = casting(value, types)
+				i=1
 
-				i=i+1
-				content[j.get("attribute_name")] = { ty: types, val: cast} 
+				if value !="":
+					content[j.get("attribute_name")]  = { ty: types, val: cast} 
+
 			output = json.dumps(content, indent=4)
-			
-			print output
+		
+			parts = urlparse.urlparse(URL)
+			parts = parts._replace(path="v2/entities/"+ENTITY_NAME+"/attrs/?options=keyValues")
+			final = parts.geturl()
 
-			#requests.post(URL,data=output, headers=HEADERS)
+			requests.post(final,data=output, headers=headers)
+			
+			print r.status_code
+
 			i=0
-			print "======================="
+			
+
+
 						
 def createEntity():
 	content = {}
 	content["type"] = ENTITY_TYPE 
 	content["id"]= ENTITY_NAME				
-	#content["currentPart"] = CSV.split('/')[1].split('.')[0]
 		
 	my_file = os.path.join(path, CSV)
 	configTranslate = readConfigFile()
@@ -157,11 +169,25 @@ def createEntity():
 			
 
 if __name__ == "__main__":
-	payload = createEntity()
-	print payload
-	print URL
-	r = requests.post(URL, data = payload, headers=headers)
-	print str(r.status_code)
-	print str(r.text)
 
-	sendMeasures()
+	payloadEntity = createEntity()
+	
+	parts = urlparse.urlparse(URL)
+	parts = parts._replace(path="/v2/entities/?options=keyValues")
+	new_url = parts.geturl()
+
+
+	r = requests.post(new_url, data = payloadEntity, headers=headers)
+
+	if r.status_code == 201:
+	 	print "Initial entity created"
+		
+		sendMeasures()
+
+
+
+	
+
+
+
+	
