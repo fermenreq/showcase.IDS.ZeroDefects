@@ -131,7 +131,6 @@ def sendMeasures():
 					content[j.get("attribute_name")]  = { ty: types, val: cast} 
 
 			output = json.dumps(content, indent=4)
-
 			r = requests.post(final,data=output, headers=headers)
 			
 		        print str(r.status_code)
@@ -150,7 +149,6 @@ def createEntity():
 	configTranslate = readConfigFile()
 	ty = "type"
 	val = "value"
-	print CSV	
 	with open(my_file) as csvfile:
 		reader = csv.DictReader(csvfile, delimiter=';', quoting=csv.QUOTE_NONE)
 		attributeName = reader.fieldnames
