@@ -36,8 +36,9 @@ path = '../FIWARE-Milling-CMM/'
 CONFIG_FILE = path + 'config/config.json'
 
 
-ENTITY_NAME = 'MillingMachine'
-ENTITY_TYPE = 'FirstMachineDevice'
+ENTITY_NAME = 'MillingMachine004'
+ENTITY_TYPE = 'Machine'
+ENTITY_CATEGORY = 'millingMachine'
 
 NUM_ARG=len(sys.argv)
 
@@ -101,7 +102,7 @@ def sendMeasures():
 	configTranslate = readConfigFile()
 
 	parts = urlparse.urlparse(URL)
-	parts = parts._replace(path="v2/entities/"+ENTITY_NAME+"/attrs/?options=keyValues")
+	parts = parts._replace(path="v2/entities/"+ENTITY_NAME+"/attrs/")
 	final = parts.geturl()
 
 	ty = "type"
@@ -125,16 +126,18 @@ def sendMeasures():
 				value = row[j.get("colunm_name")]
 				types = j.get("type")
                         	cast = casting(value, types)
-				i=1
 
 				if value !="":
 					content[j.get("attribute_name")]  = { ty: types, val: cast} 
-
-			output = json.dumps(content, indent=4)
-			r = requests.post(final,data=output, headers=headers)
 			
+			output = json.dumps(content )
+			decoded = json.loads(output)
+			print output
+			print headers
+			r = requests.post(final,data=output, headers=headers)
+				
 		        print str(r.status_code)
-
+			print str(r.text)
 			i=0
 			
 
@@ -144,7 +147,8 @@ def createEntity():
 	content = {}
 	content["type"] = ENTITY_TYPE 
 	content["id"]= ENTITY_NAME				
-		
+	#content["category"] = "ENTITY_CATEGORY"	
+
 	my_file = os.path.join(path, CSV)
 	configTranslate = readConfigFile()
 	ty = "type"
@@ -161,7 +165,7 @@ def createEntity():
 			attributeName = j.get("attribute_name")
 			content[attributeName] = { ty: types, val: value}
 		
-		output = json.dumps(content, indent=4)
+		output = json.dumps(content) #,  encoding='ascii', ensure_ascii=True, indent=4)
 	
 	return output
 			
@@ -171,7 +175,7 @@ if __name__ == "__main__":
 	payloadEntity = createEntity()
 	
 	parts = urlparse.urlparse(URL)
-	parts = parts._replace(path="/v2/entities/?options=keyValues")
+	parts = parts._replace(path="/v2/entities/")
 	new_url = parts.geturl()
 
 	print payloadEntity
@@ -183,7 +187,7 @@ if __name__ == "__main__":
 		sendMeasures()
 	else:
 		print "unexpected errror"
-
+		print r.text
 
 
 	
