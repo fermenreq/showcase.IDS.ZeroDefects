@@ -100,6 +100,10 @@ def sendMeasures():
 	my_file = os.path.join(path, CSV)
 	configTranslate = readConfigFile()
 
+	parts = urlparse.urlparse(URL)
+	parts = parts._replace(path="v2/entities/"+ENTITY_NAME+"/attrs/?options=keyValues")
+	final = parts.geturl()
+
 	ty = "type"
 	val = "value"
 	content = {}
@@ -127,14 +131,10 @@ def sendMeasures():
 					content[j.get("attribute_name")]  = { ty: types, val: cast} 
 
 			output = json.dumps(content, indent=4)
-			parts = urlparse.urlparse(URL)
-			parts = parts._replace(path="v2/entities/"+ENTITY_NAME+"/attrs/?options=keyValues")
-			final = parts.geturl()
 
 			r = requests.post(final,data=output, headers=headers)
 			
 		        print str(r.status_code)
-        		print str(r.text)
 
 			i=0
 			
