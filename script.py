@@ -124,7 +124,10 @@ def sendMeasures():
 			
 			print output
 
-			#requests.post(URL,data=output, headers=HEADERS)
+			r = requests.post(URL,data=output, headers=headers)
+		        print str(r.status_code)
+        		print str(r.text)
+
 			i=0
 			print "======================="
 						
