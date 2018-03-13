@@ -36,7 +36,7 @@ path = '../FIWARE-Milling-CMM/'
 CONFIG_FILE = path + 'config/config.json'
 
 
-ENTITY_NAME = 'MillingMachine004'
+ENTITY_NAME = 'MillingMachine005'
 ENTITY_TYPE = 'Machine'
 ENTITY_CATEGORY = 'millingMachine'
 
@@ -102,11 +102,11 @@ def sendMeasures():
 	configTranslate = readConfigFile()
 
 	parts = urlparse.urlparse(URL)
-	parts = parts._replace(path="v2/entities/"+ENTITY_NAME+"/attrs/")
+	parts = parts._replace(path="v2/entities/"+ENTITY_NAME+"/attrs/?options=keyValues")
 	final = parts.geturl()
 
-	ty = "type"
-	val = "value"
+	ty = "Type"
+	val = "Value"
 	content = {}
 	i = 0
 	with open(my_file) as csvfile:
@@ -120,7 +120,8 @@ def sendMeasures():
 				#		  nameField: {ty: types, val: cast}}
 				
 			#content["timeStamp"] = {ty : "DateTime", val:date } #conver also time
-			content["currentPart"] = CSV
+			content["currentPart"] = {ty: "text", val: CSV}
+
 			for j in configTranslate:
 
 				value = row[j.get("colunm_name")]
@@ -131,9 +132,6 @@ def sendMeasures():
 					content[j.get("attribute_name")]  = { ty: types, val: cast} 
 			
 			output = json.dumps(content )
-			decoded = json.loads(output)
-			print output
-			print headers
 			r = requests.post(final,data=output, headers=headers)
 				
 		        print str(r.status_code)
@@ -144,9 +142,10 @@ def sendMeasures():
 
 						
 def createEntity():
-	content = {}
-	content["type"] = ENTITY_TYPE 
-	content["id"]= ENTITY_NAME				
+	content = { 'type': ENTITY_TYPE, 'id': ENTITY_NAME} #, 'category': ENTITY_CATEGORY}
+	
+	#content["type"] = ENTITY_TYPE 
+	#content["id"]= ENTITY_NAME				
 	#content["category"] = "ENTITY_CATEGORY"	
 
 	my_file = os.path.join(path, CSV)
@@ -165,7 +164,7 @@ def createEntity():
 			attributeName = j.get("attribute_name")
 			content[attributeName] = { ty: types, val: value}
 		
-		output = json.dumps(content) #,  encoding='ascii', ensure_ascii=True, indent=4)
+		output = json.dumps(content,  encoding='ascii', ensure_ascii=True, indent=4)
 	
 	return output
 			
@@ -175,12 +174,10 @@ if __name__ == "__main__":
 	payloadEntity = createEntity()
 	
 	parts = urlparse.urlparse(URL)
-	parts = parts._replace(path="/v2/entities/")
+	parts = parts._replace(path="/v2/entities/?options=keyValues")
 	new_url = parts.geturl()
 
-	print payloadEntity
 	r = requests.post(new_url, data = payloadEntity, headers=headers)
-	print r
 	if ((r.status_code == 201) or (r.status_code == 422)):
 	 	print "Initial entity created"
 		
