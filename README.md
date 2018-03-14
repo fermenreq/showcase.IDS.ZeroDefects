@@ -61,11 +61,8 @@ This script will create an entity representing a Milling Machine with different 
 
 Creating de entity Milling Machine
 
+```
 {   
-    "TimeInstant": {
-         "Type": "ISO8601",
-         "Value": "2017-09-06T13:38:00.160000Z"
-    },
     "spindle_brg_temp": {
         "type": "Float", 
         "value": 0
@@ -81,7 +78,7 @@ Creating de entity Milling Machine
         "value": 0
     }
 }
-
+```
 
 For each row of the CSV file generate by the Milling Machine, attributes specified in the configuration file will be send as NGSI attributes:
 
@@ -89,6 +86,10 @@ Example of a JSON generated for a meassuremnt (CSV row) and attributes:
 
 ```
 {
+    "TimeInstant": {
+         "Type": "ISO8601",
+         "Value": "2017-09-06T13:38:00.160000Z"
+    },
     "spindle_brg_temp": {
         "type": "Float", 
         "value": 34.275
