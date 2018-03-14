@@ -84,11 +84,15 @@ For each row of the CSV file generate by the Milling Machine, attributes specifi
 Example of a JSON generated for a meassuremnt (CSV row) and attributes:
 
 ```
-{
+{   
+    "TimeInstant": {
+         "Type": "ISO8601",
+         "Value": "2017-09-06T13:38:00.160000Z"
+    },
     "spindle_brg_temp": {
         "type": "Float", 
         "value": 34.275
-    }, 
+    },
     "module_8_state": {
         "type": "Integer", 
         "value": 2
