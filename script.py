@@ -107,8 +107,8 @@ def sendMeasures():
 	parts = parts._replace(path="v2/entities/"+ENTITY_NAME+"/attrs/?options=keyValues")
 	final = parts.geturl()
 
-	ty = "Type"
-	val = "Value"
+	ty = "type"
+	val = "value"
 	content = {}
 	i = 0
 	with open(my_file) as csvfile:
