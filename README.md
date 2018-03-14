@@ -3,7 +3,7 @@ IDS Showcase. Improving manufacturing processes by data sharing
 
 Most manufacturing plans incorporate two types of machines in the production chain:
 
-+ Milling machines, producing objects by means of using rotary cutters to remove material from a workpiece of raw material
++ Milling machines, producing objects by means of using rotary cutters to remove material from a workpiece of raw material
 + Coordinate-Measuring Machines (CMM), for measuring the physical geometrical characteristics of manufactured objects in order to detect defects, etc.
 
 Each machine could improve its configuration and maintenance by means of using data produced by the other machines, bringing overall a better service to its customer (the Factory)
@@ -107,7 +107,8 @@ currentPart attribute represents the name of the part/piece that is been generat
 
 ## How to run it
 
-The script has been developed with Python, so, you need Python installed in your system.
+
+The script has been developed with Python, so, you need Python installed in your system. Currently tested with python 2.7
 
 The default ORION broker URL will be http://localhost:1026 you can use the environmental variable ORION_URL to overwrite this value:
 
@@ -125,5 +126,32 @@ Parameters:
 
 
 ## How to run it with Docker
+
+You can find the docker image from [here](docker.io/jgato/fiware-milling)
+
+
+Basic running configuration:
+
+```$> docker run -e ORION_URL=http://IP:PORT  -v `pwd`/MM_data_output/Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv:/usr/src/app/config/input.csv:ro -it jgato/fiware-milling
+
+```
+ * ORION_URL is an optional parameter, if not set, it will use ORION default url in http://localhost:11026
+ * By default you have to share input.csv file into /usr/src/app/config/input.csv
+
+Other options:
+
+Instead of sharing a CSV file you can use any included inside the container, that you can check in this repository in the MM_data_output directory:
+
+```
+$> docker run -e ORION_URL=http://130.206.116.137:11026  -it jgato/fiware-milling script.py MM_data_output/Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv
+```
+
+Also you can enable the time simulation, that will send measurements of each row, considering the difference of time between rows: 
+**not implemented yet**
+
+```
+$> docker run -e ORION_URL=http://130.206.116.137:11026  -it jgato/fiware-milling script.py MM_data_output/Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv --enable-time-simulator
+
+```
 
 
