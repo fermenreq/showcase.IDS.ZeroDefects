@@ -116,11 +116,49 @@ def sendMeasures():
 		for row in reader:
 			date = row[attributeName[0]]
 			time = row[attributeName[1]]
-					
-				#content = { "Date" :  {ty : "DateTime", val:date+time } ,
-				#		  nameField: {ty: types, val: cast}}
-				
-			#content["timeStamp"] = {ty : "DateTime", val:date } #conver also time
+
+			d = datetime.strptime(date,'%d-%b-%Y')
+			newDate = d.strftime('%Y-%m-%d')
+			
+
+			hour= int(time.split(':')[0])
+			minute=int(time.split(':')[1])
+			seconds=float(time.split(':')[2])
+
+			
+			string_date = str(newDate+time)
+			aux = str(datetime.strptime(string_date, "%Y-%m-%d%H:%M:%S.%f"))
+
+			#import pyt
+			#timezone= pytz.timezone('Europe/Madrid')
+
+			#prueba = datetime(2018,5,15,11,58,25,02, tzinfo=pytz.utc)
+
+			new_date=str(aux.split(" ")[0])
+
+			new_year = str(new_date.split("-")[0])
+			new_month = str(new_date.split("-")[1])
+			new_day = str(new_date.split("-")[2])
+			aux_new_date=new_year+"-"+new_month+"-"+new_day+"T"
+			
+	
+			new_time=str(aux.split(" ")[1])
+
+			new_hours = str(new_time.split(":")[0])
+			new_minutes=str(new_time.split(":")[1])
+			new_seconds=str(new_time.split(":")[2])		
+			aux_new_time= new_hours+":"+new_minutes+":"+new_seconds+"Z"
+
+			timestamp = str(aux_new_date+aux_new_time)
+
+			
+			# import dateutil.parser
+
+			# aux =  dateutil.parser.parser(aux)
+
+			# print datetime.
+
+			content["TimeInstant"] = {ty: "ISO8601", val: timestamp}
 			content["currentPart"] = {ty: "text", val: CSV}
 
 			for j in configTranslate:
