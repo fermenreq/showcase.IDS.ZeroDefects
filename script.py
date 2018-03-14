@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # Copyright (C) 2018 ATOS
 
 # This file is part of [FIWARE MILLING CMM].
