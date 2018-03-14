@@ -10,6 +10,7 @@ services:
       - "27017"
   orion:
     image: fiware/orion
+    command: -logLevel DEBUG
     links:
       - mongo
     ports:
