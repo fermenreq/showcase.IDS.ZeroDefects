@@ -32,8 +32,7 @@ import urlparse
 
 
 #Addres path
-path = '../FIWARE-Milling-CMM/'
-CONFIG_FILE = path + 'config/config.json'
+CONFIG_FILE =  './config/config.json'
 
 
 ENTITY_NAME = 'MillingMachine005'
@@ -98,7 +97,7 @@ def casting(value, typeData):
 	return castingValue
 
 def sendMeasures():
-	my_file = os.path.join(path, CSV)
+	my_file = os.path.join('./', CSV)
 	configTranslate = readConfigFile()
 
 	parts = urlparse.urlparse(URL)
@@ -148,7 +147,7 @@ def createEntity():
 	#content["id"]= ENTITY_NAME				
 	#content["category"] = "ENTITY_CATEGORY"	
 
-	my_file = os.path.join(path, CSV)
+	my_file = os.path.join('./', CSV)
 	configTranslate = readConfigFile()
 	ty = "type"
 	val = "value"
