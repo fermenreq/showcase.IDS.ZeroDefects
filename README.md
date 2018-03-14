@@ -61,7 +61,11 @@ This script will create an entity representing a Milling Machine with different 
 
 Creating de entity Milling Machine
 
-{
+{   
+    "TimeInstant": {
+         "Type": "ISO8601",
+         "Value": "2017-09-06T13:38:00.160000Z"
+    },
     "spindle_brg_temp": {
         "type": "Float", 
         "value": 0
