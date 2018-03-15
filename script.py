@@ -40,14 +40,17 @@ ENTITY_NAME = 'MillingMachine005'
 ENTITY_TYPE = 'Machine'
 ENTITY_CATEGORY = 'millingMachine'
 
-NUM_ARG=len(sys.argv)
-SCRIPT_NAME=sys.argv[0]
-FILE_NAME_CSV= sys.argv[1]
 
-if NUM_ARG !=2:
+SCRIPT_NAME = sys.argv[0]
+FILE_NAME_CSV = sys.argv[1]
+
+NUM_ARG=len(sys.argv)
+
+if NUM_ARG < 2:
 	print 'Usage: ' + SCRIPT_NAME + '[CSV NAME]'
- 
+
 CSV = FILE_NAME_CSV
+
 
 headers = {
   'Content-Type': 'application/json'
@@ -99,7 +102,7 @@ def totalRowsCSV():
 		totalrows= len(rows)
 	return totalrows
 
-def sendMeasures():
+def sendMeasuresSimulator():
 	my_file = os.path.join('./', CSV)
 	configTranslate = readConfigFile()
 
@@ -199,6 +202,85 @@ def sendMeasures():
 
 			if i == total:
 				print "Finished the manufacture of the piece: ", CSV
+
+def sendMeasures():
+	my_file = os.path.join('./', CSV)
+	configTranslate = readConfigFile()
+
+	parts = urlparse.urlparse(URL)
+	parts = parts._replace(path="v2/entities/"+ENTITY_NAME+"/attrs/?options=keyValues")
+	final = parts.geturl()
+
+	ty = "type"
+	val = "value"
+	content = {}
+	i = 0
+	seconds_viejos= 0.00
+	delay = 0.00
+	seconds1 = float(0.00)
+
+	with open(my_file) as csvfile:
+		reader = csv.DictReader(csvfile, delimiter=';', quoting=csv.QUOTE_NONE)
+		attributeName = reader.fieldnames		
+		total = totalRowsCSV()
+			
+		for row in reader:
+			i = i +1
+			date = row[attributeName[0]]
+			times = row[attributeName[1]]
+
+			d = datetime.strptime(date,'%d-%b-%Y')
+			newDate = d.strftime('%Y-%m-%d')
+			hour= int(times.split(':')[0])
+			minute=int(times.split(':')[1])
+			seconds=float(times.split(':')[2])
+
+			string_date = str(newDate+times)
+			aux = str(datetime.strptime(string_date, "%Y-%m-%d%H:%M:%S.%f"))
+
+			#import pyt
+			#timezone= pytz.timezone('Europe/Madrid')
+
+			#prueba = datetime(2018,5,15,11,58,25,02, tzinfo=pytz.utc)
+
+			new_date=str(aux.split(" ")[0])
+
+			new_year = str(new_date.split("-")[0])
+			new_month = str(new_date.split("-")[1])
+			new_day = str(new_date.split("-")[2])
+			aux_new_date=new_year+"-"+new_month+"-"+new_day+"T"
+		
+			new_time=str(aux.split(" ")[1])
+		
+			new_hours = str(new_time.split(":")[0])
+			new_minutes=str(new_time.split(":")[1])
+			new_seconds=str(new_time.split(":")[2])		
+			aux_new_time= new_hours+":"+new_minutes+":"+new_seconds+"Z"
+
+			timestamp = str(aux_new_date+aux_new_time)
+
+			# import dateutil.parser
+			# aux =  dateutil.parser.parser(aux)
+			# print datetime.
+
+			content["TimeInstant"] = {ty: "ISO8601", val: timestamp}
+			content["currentPart"] = {ty: "text", val: CSV}
+
+			for j in configTranslate:
+				value = row[j.get("colunm_name")]
+				types = j.get("type")
+                        	cast = casting(value, types)
+				if value !="":
+					content[j.get("attribute_name")]  = { ty: types, val: cast} 
+			
+			output = json.dumps(content)
+			print "Sending measure number: ", i
+			r = requests.post(final,data=output, headers=headers)
+				
+		        print "Response: " + str(r.status_code)
+			#print str(r.text)
+			print "--------------------------------------"
+			print 
 			
 						
 def createEntity():
@@ -221,7 +303,7 @@ def createEntity():
 		output = json.dumps(content,  encoding='ascii', ensure_ascii=True, indent=4)
 	
 	return output
-			
+
 
 if __name__ == "__main__":
 	payloadEntity = createEntity()
@@ -232,9 +314,24 @@ if __name__ == "__main__":
 
 	r = requests.post(new_url, data = payloadEntity, headers=headers)
 	if ((r.status_code == 201) or (r.status_code == 422)):
-	 	print "Initial entity created"
-	 	print 
-		sendMeasures()
+
+	 	if NUM_ARG == 3 and sys.argv[2] == "enable-simulator":
+	 		print "Initial entity created"
+	 		print
+	 		sendMeasuresSimulator()
+
+		if NUM_ARG == 2:
+			print "Initial entity created"
+	 		print
+			sendMeasures()
+		
+		else:
+			print 'You can use the following commands: '
+			print '1. Using script without simulator time: ' + SCRIPT_NAME + ' [CSV NAME]'
+			print
+			print '2. Using script with a simulator time: ' + SCRIPT_NAME + ' [CSV NAME] ' + 'enable-simulator'
+
 	else:
 		print "unexpected errror"
 		print r.text
+
