@@ -121,6 +121,7 @@ The default ORION broker URL will be http://localhost:1026 you can use the envir
 $> export ORION_URL=http://127.0.0.1:1026
 
 $> ./script.py input_file.csv 
+
 ```
 
 Parameters:
@@ -137,7 +138,8 @@ You can find the docker image from [here](docker.io/jgato/fiware-milling)
 
 Basic running configuration:
 
-```$> docker run -e ORION_URL=http://IP:PORT  -v `pwd`/MM_data_output/Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv:/usr/src/app/config/input.csv:ro -it jgato/fiware-milling
+```
+$> docker run -e ORION_URL=http://IP:PORT  -v `pwd`/MM_data_output/Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv:/usr/src/app/config/input.csv:ro -it jgato/fiware-milling
 
 ```
  * ORION_URL is an optional parameter, if not set, it will use ORION default url in http://localhost:11026
@@ -149,6 +151,7 @@ Instead of sharing a CSV file you can use any included inside the container, tha
 
 ```
 $> docker run -e ORION_URL=http://130.206.116.137:11026  -it jgato/fiware-milling script.py MM_data_output/Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv
+
 ```
 
 Also you can enable the time simulation, that will send measurements of each row, considering the difference of time between rows: 
@@ -158,5 +161,3 @@ Also you can enable the time simulation, that will send measurements of each row
 $> docker run -e ORION_URL=http://130.206.116.137:11026  -it jgato/fiware-milling script.py MM_data_output/Transfer_data_MPT_18_Impeller_0001_ref_APS_nok.csv --enable-time-simulator
 
 ```
-
-
