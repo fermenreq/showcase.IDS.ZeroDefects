@@ -315,7 +315,7 @@ if __name__ == "__main__":
 	r = requests.post(new_url, data = payloadEntity, headers=headers)
 	if ((r.status_code == 201) or (r.status_code == 422)):
 
-	 	if NUM_ARG == 3 and sys.argv[2] == "enable-simulator":
+	 	if NUM_ARG == 3 and sys.argv[2] == "enable-time-simulator":
 	 		print "Initial entity created"
 	 		print
 	 		sendMeasuresSimulator()
@@ -327,9 +327,10 @@ if __name__ == "__main__":
 		
 		else:
 			print 'You can use the following commands: '
+			print
 			print '1. Using script without simulator time: ' + SCRIPT_NAME + ' [CSV NAME]'
 			print
-			print '2. Using script with a simulator time: ' + SCRIPT_NAME + ' [CSV NAME] ' + 'enable-simulator'
+			print '2. Using script with a simulator time: ' + SCRIPT_NAME + ' [CSV NAME] ' + 'enable-time-simulator'
 
 	else:
 		print "unexpected errror"
